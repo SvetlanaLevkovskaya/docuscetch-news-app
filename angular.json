@@ -82,6 +82,14 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://svetlanalevkovskaya.github.io/docuscetch-news-app/",
+            "name": "docuscetch-news-app",
+            "email": "levkovskayase@gmail.com"
+          }
         }
       }
     }
