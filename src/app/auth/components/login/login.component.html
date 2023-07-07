@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="box">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="form">
+      <div class="form-field">
+        <input
+          type="text"
+          formControlName="email"
+          required
+          autocomplete="email"
+          class="input"
+          [ngClass]="{
+            inputError: email!.invalid && (email!.dirty || email!.touched),
+            inputSuccess: email!.valid
+          }"
+          placeholder="Email"
+        />
+        <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="error">
+          <div *ngIf="email!.errors?.['required']">Email is required</div>
+          <div *ngIf="email!.errors?.['pattern']">Email incorrect pattern</div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input
+          type="password"
+          formControlName="password"
+          required
+          autocomplete="current-password"
+          class="input"
+          [ngClass]="{
+            inputError: password!.invalid && (password!.dirty || password!.touched),
+            inputSuccess: password!.valid
+          }"
+          placeholder="Password"
+        />
+        <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="error">
+          <div *ngIf="password!.errors?.['required']">Password is required</div>
+          <div *ngIf="password!.errors?.['minlength']">
+            Password must be at least 3 characters long
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>
+          <input type="checkbox" formControlName="rememberMe" />
+          remember me
+        </label>
+      </div>
+
+      <div class="form-field">
+        <button type="submit" [disabled]="loginForm.invalid">Sign in</button>
+      </div>
+    </form>
+  </div>
+</div>
