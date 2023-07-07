@@ -9,6 +9,7 @@ import { ResultCodeEnum } from '../enums/resultCode.enum'
 import { LoginRequestData, MeResponse } from '../models/auth.models'
 import { CommonResponseType } from '../models/core.models'
 import { NotificationService } from './notification.service'
+import { UserEmailService } from './userEmail.service'
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userEmailService: UserEmailService
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -35,7 +37,7 @@ export class AuthService {
         if (res.resultCode === ResultCodeEnum.success) {
           this.router.navigate(['/'])
           this.notificationService.handleSuccess(
-            `User ${res.data.userId} are successfully signed in!`
+            `User ${this.userEmailService.userEmail} successfully signed in!`
           )
         } else {
           this.notificationService.handleError(res.messages[0])
@@ -64,6 +66,7 @@ export class AuthService {
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
           this.isAuth = true
+          this.userEmailService.userEmail = res.data.email
         }
         this.resolveAuthRequest()
       })
