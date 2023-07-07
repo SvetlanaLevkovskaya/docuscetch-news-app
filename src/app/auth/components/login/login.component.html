@@ -2,6 +2,7 @@
   <div class="box">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="form">
       <div class="form-field">
+        <label>Email</label>
         <input
           type="text"
           formControlName="email"
@@ -12,7 +13,6 @@
             inputError: email!.invalid && (email!.dirty || email!.touched),
             inputSuccess: email!.valid
           }"
-          placeholder="Email"
         />
         <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="error">
           <div *ngIf="email!.errors?.['required']">Email is required</div>
@@ -21,6 +21,7 @@
       </div>
 
       <div class="form-field">
+        <label>Password</label>
         <input
           type="password"
           formControlName="password"
@@ -31,7 +32,6 @@
             inputError: password!.invalid && (password!.dirty || password!.touched),
             inputSuccess: password!.valid
           }"
-          placeholder="Password"
         />
         <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="error">
           <div *ngIf="password!.errors?.['required']">Password is required</div>
@@ -44,7 +44,7 @@
       <div class="form-field">
         <label>
           <input type="checkbox" formControlName="rememberMe" />
-          remember me
+          Remember me
         </label>
       </div>
 
