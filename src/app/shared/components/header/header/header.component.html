@@ -1,20 +1,17 @@
 <header class="header">
   <div class="logo">
-    <!-- Разметка для логотипа -->
     <img src="assets/logo.png" alt="Logo" />
   </div>
 
   <nav class="navigation">
-    <!-- Разметка для навигации по сайту -->
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/posts">News</a></li>
-      <li><a href="/posts/:postId">My news</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/subscriptions">Subscriptions</a></li>
     </ul>
   </nav>
 
   <div class="user-info">
-    <!-- Разметка для информации о текущем пользователе -->
     <span>Welcome, {{ userEmail }}!</span>
     <button class="button" (click)="logout()">Logout</button>
   </div>

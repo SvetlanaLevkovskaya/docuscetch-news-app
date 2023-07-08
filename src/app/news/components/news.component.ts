@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { NewsService } from '../services/news.service'
+import { News } from '../models/news'
 
 @Component({
   selector: 'app-news',
@@ -7,8 +8,8 @@ import { NewsService } from '../services/news.service'
   styleUrls: ['./news.component.css'],
 })
 export class NewsComponent {
-  news: any[] = []
-  filteredNews: any[] = []
+  news: News[] = []
+  filteredNews: News[] = []
   categories: string[] = []
   searchQuery: string = ''
 

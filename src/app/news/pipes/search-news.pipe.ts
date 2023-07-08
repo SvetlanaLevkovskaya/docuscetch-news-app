@@ -12,6 +12,6 @@ export class SearchNewsPipe implements PipeTransform {
 
     const searchTerm = search.toLowerCase()
 
-    return news.filter(el => el.title.toLowerCase().includes(searchTerm))
+    return news.filter(article => article.title.toLowerCase().includes(searchTerm))
   }
 }
