@@ -60,3 +60,7 @@
   border-radius: 5px;
   font-size: 14px;
 }
+
+.odd-article {
+  background-color: #f0f0f0;
+}
