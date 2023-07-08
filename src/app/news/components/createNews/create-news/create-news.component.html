@@ -1,0 +1,27 @@
+<div class="create-news-container">
+  <h2>Create News Article</h2>
+
+  <form (ngSubmit)="createArticle()">
+    <div>
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="article.title" name="title" required />
+    </div>
+
+    <div>
+      <label>Category:</label>
+      <input type="text" [(ngModel)]="article.category" name="category" required />
+    </div>
+
+    <div>
+      <label>Description:</label>
+      <textarea [(ngModel)]="article.description" name="description" required></textarea>
+    </div>
+
+    <div>
+      <label>Date:</label>
+      <input type="date" [(ngModel)]="article.date" name="date" required />
+    </div>
+
+    <button type="submit">Create Article</button>
+  </form>
+</div>

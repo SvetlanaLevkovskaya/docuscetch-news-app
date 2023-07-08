@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { NewsService } from '../services/news.service'
 import { News } from '../models/news'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-news',
@@ -15,12 +16,16 @@ export class NewsComponent {
 
   selectedCategory: string = 'All'
 
-  constructor(private newsService: NewsService) {}
+  constructor(private newsService: NewsService, private router: Router) {}
 
   ngOnInit() {
-    this.news = this.newsService.getNews()
-    this.filteredNews = this.news
+    this.updateNews()
     this.categories = this.getUniqueCategories()
+  }
+
+  updateNews() {
+    this.news = this.newsService.getNews()
+    this.filterByCategory(this.selectedCategory)
   }
 
   filterByCategory(category: string) {
@@ -35,5 +40,13 @@ export class NewsComponent {
   getUniqueCategories(): string[] {
     const categories = this.news.map(article => article.category)
     return [...new Set(categories)]
+  }
+
+  goToCreateNews() {
+    this.router.navigate(['/create-news'])
+  }
+
+  onArticleCreated() {
+    this.updateNews()
   }
 }

@@ -1,21 +1,25 @@
 <app-header></app-header>
 
 <div class="category-filter">
-  <button
-    class="category-btn"
-    [ngClass]="{ selected: selectedCategory === 'All' }"
-    (click)="filterByCategory('All')"
-  >
-    All
-  </button>
-  <button
-    class="category-btn"
-    *ngFor="let category of categories"
-    [ngClass]="{ selected: selectedCategory === category }"
-    (click)="filterByCategory(category)"
-  >
-    {{ category }}
-  </button>
+  <div class="category-buttons">
+    <button
+      class="category-btn"
+      [ngClass]="{ selected: selectedCategory === 'All' }"
+      (click)="filterByCategory('All')"
+    >
+      All
+    </button>
+    <button
+      class="category-btn"
+      *ngFor="let category of categories"
+      [ngClass]="{ selected: selectedCategory === category }"
+      (click)="filterByCategory(category)"
+    >
+      {{ category }}
+    </button>
+  </div>
+
+  <button class="btn-create" (click)="goToCreateNews()">Create News</button>
 </div>
 
 <div class="search-bar">

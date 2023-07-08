@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms'
 import { NewsComponent } from './components/news.component'
 import { NewsRoutingModule } from './news-routing.module'
 import { SharedModule } from '../shared/shared.module'
-import { SearchNewsPipe } from './pipes/search-news.pipe'
+import { SearchNewsPipe } from './pipes/search-news.pipe';
+import { CreateNewsComponent } from './components/createNews/create-news/create-news.component'
 
 @NgModule({
-  declarations: [NewsComponent, SearchNewsPipe],
+  declarations: [NewsComponent, SearchNewsPipe, CreateNewsComponent],
   imports: [CommonModule, NewsRoutingModule, FormsModule, SharedModule],
 })
 export class NewsModule {}

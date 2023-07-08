@@ -29,6 +29,14 @@
 
 .category-filter {
   margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .category-btn {
@@ -63,4 +71,18 @@
 
 .odd-article {
   background-color: #f0f0f0;
+}
+
+.btn-create {
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-create:hover {
+  background-color: #555;
 }
