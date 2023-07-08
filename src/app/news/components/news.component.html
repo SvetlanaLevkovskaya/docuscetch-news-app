@@ -1,14 +1,40 @@
 <app-header></app-header>
 
-<!-- Дополнительный контент главной страницы -->
-
-<div class="container">
-  <h1>Welcome to our website!</h1>
-  <p>Enjoy exploring our products and services.</p>
+<div class="category-filter">
+  <button
+    class="category-btn"
+    [ngClass]="{ selected: selectedCategory === 'All' }"
+    (click)="filterByCategory('All')"
+  >
+    All
+  </button>
+  <button
+    class="category-btn"
+    *ngFor="let category of categories"
+    [ngClass]="{ selected: selectedCategory === category }"
+    (click)="filterByCategory(category)"
+  >
+    {{ category }}
+  </button>
 </div>
 
-<!-- Всплывающее окно для уведомления об успешном выходе -->
+<div class="search-bar">
+  <input type="text" placeholder="Search articles..." [(ngModel)]="searchQuery" />
+  <div *ngIf="searchQuery" class="news-container">
+    <div *ngFor="let article of news | searchNews : searchQuery" class="news-article">
+      <h2>{{ article.title }}</h2>
+      <p class="category">Category: {{ article.category }}</p>
+      <p>{{ article.description }}</p>
+      <p class="date">Published: {{ article.date }}</p>
+    </div>
+  </div>
+</div>
 
-<!--<div *ngIf="logoutSuccess" class="notification">
-  You have been logged out successfully!
-</div>-->
+<div class="news-container" *ngIf="!searchQuery">
+  <div *ngFor="let article of filteredNews" class="news-article">
+    <h2>{{ article.title }}</h2>
+    <p class="category">Category: {{ article.category }}</p>
+    <p>{{ article.description }}</p>
+    <p class="date">Published: {{ article.date }}</p>
+  </div>
+</div>
