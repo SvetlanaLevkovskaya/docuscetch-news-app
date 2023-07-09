@@ -21,7 +21,7 @@
 
 .navigation li {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .navigation li a {
@@ -31,7 +31,7 @@
 }
 
 .navigation li a:hover {
-  color: #1d83ea;
+  color: #567b95;
 }
 
 .user-info {
@@ -43,7 +43,7 @@
 .button {
   display: inline-block;
   padding: 8px 16px;
-  background-color: #1d83ea;
+  background-color: #567b95;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -51,5 +51,5 @@
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #274665;
 }

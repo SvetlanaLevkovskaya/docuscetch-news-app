@@ -1,31 +1,31 @@
 .notification {
   position: fixed;
-  top: 125px;
+  top: 15%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 100;
 }
 
 .notification-item {
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 420px;
-  margin-top: 20px;
-  padding: 11px 13px;
+  width: 26.25rem;
+  margin-top: 1.25rem;
+  padding: 0.6875rem 0.8125rem;
   color: #FFFFFF;
-  border-radius: 2px;
+  border-radius: 0.3125rem;
   border-color: grey;
 }
 
 .notification-item-success {
-  background-color: green;
+  background-color: #6ed76e;
 }
 
 .notification-item-error {
-  background-color: red;
+  background-color: #e85c5c;
 }
 
 .notification-close {
@@ -33,6 +33,6 @@
   border: none;
   color: white;
   cursor: pointer;
-  font-size: 16px;
-  margin-left: 10px;
+  font-size: 1rem;
+  margin-left: 0.625rem;
 }
