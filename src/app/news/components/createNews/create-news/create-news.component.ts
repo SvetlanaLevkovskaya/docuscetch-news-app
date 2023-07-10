@@ -10,6 +10,7 @@ import { Router } from '@angular/router'
 })
 export class CreateNewsComponent {
   article: News = {
+    id: 0,
     title: '',
     category: '',
     description: '',
@@ -24,6 +25,7 @@ export class CreateNewsComponent {
     this.newsService.addNews(this.article)
     // Clear the form after adding the article
     this.article = {
+      id: 0,
       title: '',
       category: '',
       description: '',
