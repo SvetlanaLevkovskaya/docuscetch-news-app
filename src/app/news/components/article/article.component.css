@@ -1,0 +1,18 @@
+.article-details-container {
+  margin: 50px;
+}
+
+.article-details-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.article-details-container .category {
+  font-weight: bold;
+}
+
+.article-details-container .date {
+  font-style: italic;
+  color: #888;
+}

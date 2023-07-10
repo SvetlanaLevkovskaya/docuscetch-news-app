@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core'
-import { NewsService } from '../../../services/news.service'
-import { News } from '../../../models/news'
+import { NewsService } from '../../services/news.service'
+import { News } from '../../models/news'
 import { Router } from '@angular/router'
-import { AuthService } from '../../../../core/services/auth.service'
+import { AuthService } from '../../../core/services/auth.service'
 
 @Component({
   selector: 'app-create-news',
@@ -11,7 +11,7 @@ import { AuthService } from '../../../../core/services/auth.service'
 })
 export class CreateNewsComponent {
   article: News = {
-    id: 0,
+    id: '',
     title: '',
     category: '',
     description: '',
@@ -30,14 +30,13 @@ export class CreateNewsComponent {
     this.newsService.addNews(this.article)
     // Clear the form after adding the article
     this.article = {
-      id: 0,
+      id: '',
       title: '',
       category: '',
       description: '',
       date: '',
     }
 
-    // Navigate to the home page
     this.router.navigate(['/'])
   }
 }

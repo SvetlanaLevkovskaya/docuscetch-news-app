@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'news',
     loadChildren: () => import('./news/news.module').then(el => el.NewsModule),
   },
   {

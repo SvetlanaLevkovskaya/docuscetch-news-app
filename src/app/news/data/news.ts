@@ -1,6 +1,6 @@
 export const news = [
   {
-    id: 1,
+    id: '1',
     title: 'New Study Shows Benefits of Regular Exercise',
     category: 'Health',
     description:
@@ -8,7 +8,7 @@ export const news = [
     date: '2023-07-01',
   },
   {
-    id: 2,
+    id: '2',
     title: 'Tech Giant Announces Release of Latest Smartphone Model',
     category: 'Technology',
     description:
@@ -16,7 +16,7 @@ export const news = [
     date: '2023-06-28',
   },
   {
-    id: 3,
+    id: '3',
     title: 'World Leaders Gather for Climate Change Summit',
     category: 'Environment',
     description:
@@ -24,7 +24,7 @@ export const news = [
     date: '2023-07-05',
   },
   {
-    id: 4,
+    id: '4',
     title: 'New Discovery in Space Exploration',
     category: 'Science',
     description:
@@ -32,7 +32,7 @@ export const news = [
     date: '2023-07-03',
   },
   {
-    id: 5,
+    id: '5',
     title: 'Art Exhibition Showcases Local Talent',
     category: 'Arts',
     description:
@@ -40,7 +40,7 @@ export const news = [
     date: '2023-07-02',
   },
   {
-    id: 6,
+    id: '6',
     title: 'Stock Market Hits Record High',
     category: 'Finance',
     description:
@@ -48,7 +48,7 @@ export const news = [
     date: '2023-07-07',
   },
   {
-    id: 7,
+    id: '7',
     title: "New Treatment Breakthrough for Alzheimer's Disease",
     category: 'Health',
     description:
@@ -56,7 +56,7 @@ export const news = [
     date: '2023-07-06',
   },
   {
-    id: 8,
+    id: '8',
     title: 'Electric Car Sales Surge Globally',
     category: 'Technology',
     description:
@@ -64,7 +64,7 @@ export const news = [
     date: '2023-07-04',
   },
   {
-    id: 9,
+    id: '9',
     title: 'Scientists Discover New Species in the Deep Ocean',
     category: 'Science',
     description:
@@ -72,7 +72,7 @@ export const news = [
     date: '2023-07-08',
   },
   {
-    id: 10,
+    id: '10',
     title: 'Breakthrough in Quantum Computing Research',
     category: 'Science',
     description:
@@ -80,7 +80,7 @@ export const news = [
     date: '2023-07-07',
   },
   {
-    id: 11,
+    id: '11',
     title: 'New Research Reveals Potential for Life on Mars',
     category: 'Science',
     description:
@@ -88,7 +88,7 @@ export const news = [
     date: '2023-07-08',
   },
   {
-    id: 12,
+    id: '12',
     title: 'Scientists Develop Promising COVID-19 Vaccine Candidate',
     category: 'Science',
     description:
@@ -96,7 +96,7 @@ export const news = [
     date: '2023-07-06',
   },
   {
-    id: 13,
+    id: '13',
     title: 'Tech Giant Announces Release of Latest Smartphone Model',
     category: 'Technology',
     description:
@@ -104,7 +104,7 @@ export const news = [
     date: '2023-06-28',
   },
   {
-    id: 14,
+    id: '14',
     title: 'Electric Car Sales Surge Globally',
     category: 'Technology',
     description:
@@ -112,7 +112,7 @@ export const news = [
     date: '2023-07-04',
   },
   {
-    id: 15,
+    id: '15',
     title: 'Tech Startup Unveils Revolutionary Artificial Intelligence System',
     category: 'Technology',
     description:
@@ -120,7 +120,7 @@ export const news = [
     date: '2023-07-09',
   },
   {
-    id: 16,
+    id: '16',
     title: 'Next-Generation Gaming Console Set to Launch',
     category: 'Technology',
     description:
@@ -128,7 +128,7 @@ export const news = [
     date: '2023-07-08',
   },
   {
-    id: 17,
+    id: '17',
     title: 'Healthy Eating Habits for a Balanced Lifestyle',
     category: 'Health',
     description:
@@ -136,7 +136,7 @@ export const news = [
     date: '2023-07-10',
   },
   {
-    id: 18,
+    id: '18',
     title: 'The Impact of Stress on Mental Health',
     category: 'Health',
     description:
@@ -144,7 +144,7 @@ export const news = [
     date: '2023-07-11',
   },
   {
-    id: 19,
+    id: '19',
     title: 'Benefits of Meditation for Mind and Body',
     category: 'Health',
     description:
@@ -152,7 +152,7 @@ export const news = [
     date: '2023-07-12',
   },
   {
-    id: 20,
+    id: '20',
     title: 'The Importance of Regular Check-ups',
     category: 'Health',
     description:
@@ -160,7 +160,7 @@ export const news = [
     date: '2023-07-13',
   },
   {
-    id: 21,
+    id: '21',
     title: 'Tips for Maintaining a Healthy Heart',
     category: 'Health',
     description:
@@ -168,7 +168,7 @@ export const news = [
     date: '2023-07-14',
   },
   {
-    id: 22,
+    id: '22',
     title: 'Renewable Energy Revolution: Harnessing the Power of Nature',
     category: 'Environment',
     description:
@@ -176,7 +176,7 @@ export const news = [
     date: '2023-07-15',
   },
   {
-    id: 23,
+    id: '23',
     title: "Protecting Biodiversity: Preserving Earth's Natural Wonders",
     category: 'Environment',
     description:
@@ -184,7 +184,7 @@ export const news = [
     date: '2023-07-16',
   },
   {
-    id: 24,
+    id: '24',
     title: 'Promoting Sustainable Agriculture for a Greener Future',
     category: 'Environment',
     description:
@@ -192,7 +192,7 @@ export const news = [
     date: '2023-07-17',
   },
   {
-    id: 25,
+    id: '25',
     title: 'Combatting Plastic Pollution: Towards a Plastic-Free World',
     category: 'Environment',
     description:
@@ -200,7 +200,7 @@ export const news = [
     date: '2023-07-18',
   },
   {
-    id: 26,
+    id: '26',
     title: 'Preserving Natural Resources: The Role of Conservation',
     category: 'Environment',
     description:
@@ -208,7 +208,7 @@ export const news = [
     date: '2023-07-19',
   },
   {
-    id: 27,
+    id: '27',
     title: 'Celebrating Diversity: Art Exhibition Showcases Cultural Harmony',
     category: 'Arts',
     description:
@@ -216,7 +216,7 @@ export const news = [
     date: '2023-07-20',
   },
   {
-    id: 28,
+    id: '28',
     title: 'Exploring Abstract Art: Unlocking the Power of Imagination',
     category: 'Arts',
     description:
@@ -224,7 +224,7 @@ export const news = [
     date: '2023-07-21',
   },
   {
-    id: 29,
+    id: '29',
     title: 'Art and Technology: The Fusion of Creativity and Innovation',
     category: 'Arts',
     description:
@@ -232,7 +232,7 @@ export const news = [
     date: '2023-07-22',
   },
   {
-    id: 30,
+    id: '30',
     title: 'Exploring Local Talent: Community Art Exhibition',
     category: 'Arts',
     description:
@@ -240,7 +240,7 @@ export const news = [
     date: '2023-07-23',
   },
   {
-    id: 31,
+    id: '31',
     title: 'Art as a Medium of Social Change: Inspiring Activism',
     category: 'Arts',
     description:
@@ -248,7 +248,7 @@ export const news = [
     date: '2023-07-24',
   },
   {
-    id: 32,
+    id: '32',
     title: 'Stock Market Hits Record High',
     category: 'Finance',
     description:
@@ -256,7 +256,7 @@ export const news = [
     date: '2023-07-07',
   },
   {
-    id: 33,
+    id: '33',
     title: 'Cryptocurrency Surges: New Opportunities in Digital Assets',
     category: 'Finance',
     description:
@@ -264,7 +264,7 @@ export const news = [
     date: '2023-07-08',
   },
   {
-    id: 34,
+    id: '34',
     title: 'Global Trade Agreements Boost Economic Growth',
     category: 'Finance',
     description:
@@ -272,7 +272,7 @@ export const news = [
     date: '2023-07-09',
   },
   {
-    id: 35,
+    id: '35',
     title: 'Financial Technology Revolution: Transforming the Banking Industry',
     category: 'Finance',
     description:
@@ -280,7 +280,7 @@ export const news = [
     date: '2023-07-10',
   },
   {
-    id: 36,
+    id: '36',
     title: 'Investment Strategies for a Volatile Market',
     category: 'Finance',
     description:

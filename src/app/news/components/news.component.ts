@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { NewsService } from '../services/news.service'
 import { News } from '../models/news'
 import { Router } from '@angular/router'
+import { AuthService } from '../../core/services/auth.service'
 
 @Component({
   selector: 'app-news',
@@ -16,7 +17,11 @@ export class NewsComponent {
 
   selectedCategory: string = 'All'
 
-  constructor(private newsService: NewsService, private router: Router) {}
+  constructor(
+    private newsService: NewsService,
+    private router: Router,
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.updateNews()
@@ -48,5 +53,9 @@ export class NewsComponent {
 
   onArticleCreated() {
     this.updateNews()
+  }
+
+  openArticle(article: News) {
+    this.router.navigate(['/', article.id])
   }
 }

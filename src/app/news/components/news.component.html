@@ -39,6 +39,8 @@
     *ngFor="let article of filteredNews; let i = index"
     class="news-article"
     [ngClass]="{ 'odd-article': i % 2 !== 1 }"
+    (click)="openArticle(article)"
+    [routerLink]="['/', article.id]"
   >
     <h2>{{ article.title }}</h2>
     <p class="category">Category: {{ article.category }}</p>
@@ -46,3 +48,4 @@
     <p class="date">Published: {{ article.date }}</p>
   </div>
 </div>
+{{ authService.authRequest | async }}
