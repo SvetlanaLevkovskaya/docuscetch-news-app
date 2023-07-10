@@ -27,6 +27,7 @@
   text-decoration: none;
   color: #333;
   transition: color 0.3s;
+  cursor: pointer;
 }
 
 .navigation li a:hover {
@@ -52,3 +53,4 @@
 .button:hover {
   background-color: #274665;
 }
+

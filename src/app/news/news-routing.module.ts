@@ -12,15 +12,17 @@ const routes: Routes = [
   {
     path: 'create-news',
     component: CreateNewsComponent,
+    pathMatch: 'full',
 
     canActivate: [AuthGuard],
   },
   {
     path: 'subscribe',
     component: SubscriptionComponent,
+    pathMatch: 'full',
     canActivate: [AuthGuard],
   },
-  { path: ':id', component: ArticleComponent, canActivate: [AuthGuard] },
+  { path: ':id', component: ArticleComponent, pathMatch: 'full', canActivate: [AuthGuard] },
 ]
 
 @NgModule({

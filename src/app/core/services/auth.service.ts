@@ -33,7 +33,6 @@ export class AuthService {
       .pipe(catchError(this.errorHandler.bind(this)))
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
-          console.log(this)
           this.router.navigate(['/'])
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
