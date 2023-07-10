@@ -8,4 +8,5 @@ export interface MeResponse {
   email: string
   id: number
   login: string
+  sessionToken: string
 }
