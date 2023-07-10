@@ -7,8 +7,10 @@ import { AuthService } from 'src/app/core/services/auth.service'
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
+
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    const isAuth = this.authService.isAuth
+    await this.authService.authRequest // Wait for the authRequest Promise to resolve
+    const isAuth: boolean = this.authService.isAuth // Access the resolved value
     if (!isAuth) {
       await this.router.navigate(['/login'])
     }
