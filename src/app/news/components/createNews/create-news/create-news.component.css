@@ -1,5 +1,30 @@
 .create-news-container {
-  margin: 20px;
+  margin-left: 200px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  max-width: 700px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 20px;
 }
 
 .create-news-container h2 {
@@ -9,6 +34,7 @@
 }
 
 .create-news-container form {
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   gap: 10px;
