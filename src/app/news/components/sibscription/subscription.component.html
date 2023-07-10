@@ -3,30 +3,30 @@
 <div class="subscription-container">
   <h2>Subscription Options:</h2>
   <ul class="subscription-list">
-    <li>
-      <label class="subscription-option">
+    <li class="subscription-option">
+      <label>
         <input
           type="radio"
           name="subscription"
           (change)="selectSubscription('basic')"
           [checked]="selectedSubscription === 'basic'"
         />
-        Basic Subscription
+        <strong> Basic Subscription</strong>
       </label>
       <ul class="benefits-list">
         <li>Access to basic features</li>
         <li>Support via email</li>
       </ul>
     </li>
-    <li>
-      <label class="subscription-option">
+    <li class="subscription-option">
+      <label>
         <input
           type="radio"
           name="subscription"
           (change)="selectSubscription('premium')"
           [checked]="selectedSubscription === 'premium'"
         />
-        Premium Subscription
+        <strong> Premium Subscription</strong>
       </label>
       <ul class="benefits-list">
         <li>Access to premium features</li>

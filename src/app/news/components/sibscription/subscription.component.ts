@@ -9,13 +9,17 @@ import { NotificationService } from '../../../core/services/notification.service
   styleUrls: ['./subscription.component.css'],
 })
 export class SubscriptionComponent {
-  selectedSubscription: string = ''
+  selectedSubscription: string = 'basic'
 
   constructor(
     public authService: AuthService,
     private router: Router,
     private notificationService: NotificationService
   ) {}
+
+  ngOnInit() {
+    this.selectSubscription(this.selectedSubscription)
+  }
 
   selectSubscription(subscription: string): void {
     this.selectedSubscription = subscription
