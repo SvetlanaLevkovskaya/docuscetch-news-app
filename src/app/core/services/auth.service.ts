@@ -82,6 +82,7 @@ export class AuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
+    console.log('Checking authentication status', this.isAuth$)
     return this.isAuth$
   }
 
