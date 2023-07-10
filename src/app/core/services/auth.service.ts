@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Router } from '@angular/router'
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
 import { ResultCodeEnum } from '../enums/resultCode.enum'
 import { LoginRequestData, MeResponse } from '../models/auth.models'
 import { CommonResponseType } from '../models/core.models'
@@ -41,41 +41,38 @@ export class AuthService {
     this.isAuthSubject.next(sessionToken !== null)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  resolveAuthRequest: any = () => {}
-
-  authRequest = new Promise(resolve => {
-    this.resolveAuthRequest = resolve
-  })
-
   login(data: LoginRequestData) {
     this.http
       .post<CommonResponseType<{ userId: number; sessionToken: string }>>(
         `${environment.baseUrl}/auth/login`,
         data
       )
-      .pipe(catchError(this.errorHandler.bind(this)))
-      .subscribe(res => {
-        if (res.resultCode === ResultCodeEnum.success) {
-          this.setSessionToken(res.data.sessionToken)
+      .pipe(
+        catchError(this.errorHandler.bind(this)),
+        map(res => res.data.sessionToken),
+        tap(sessionToken => this.setSessionToken(sessionToken)),
+        switchMap(sessionToken => this.me(sessionToken))
+      )
+      .subscribe({
+        next: userEmail => {
+          this.userEmailService.setUserEmail(userEmail.email)
           this.router.navigate(['/'])
-          this.notificationService.handleSuccess(
-            `User ${this.userEmailService.userEmail} successfully signed in!`
-          )
-        } else {
-          this.notificationService.handleError(res.messages[0])
-        }
+          this.notificationService.handleSuccess(`User ${userEmail.email} successfully signed in!`)
+        },
+        error: error => {
+          this.notificationService.handleError(error)
+        },
       })
   }
 
   logout() {
-    this.http
     this.http
       .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
       .pipe(catchError(this.errorHandler.bind(this)))
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
           this.setSessionToken(null)
+          this.userEmailService.clearUserEmail()
           this.router.navigate(['/login'])
           this.notificationService.handleSuccess('You have been logged out successfully!')
         } else {
@@ -87,17 +84,18 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     return this.isAuth$
   }
-  me() {
-    this.http
-      .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
-      .pipe(catchError(this.errorHandler.bind(this)))
-      .subscribe(res => {
+
+  me(sessionToken: string): Observable<{ email: string; sessionToken: string }> {
+    return this.http.get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`).pipe(
+      catchError(this.errorHandler.bind(this)),
+      map(res => {
         if (res.resultCode === ResultCodeEnum.success) {
-          this.setSessionToken(res.data.sessionToken)
-          this.userEmailService.userEmail = res.data.email
+          return { email: res.data.email, sessionToken }
+        } else {
+          throw new Error(res.messages[0])
         }
-        this.resolveAuthRequest()
       })
+    )
   }
 
   private errorHandler(err: HttpErrorResponse | null) {
@@ -108,7 +106,6 @@ export class AuthService {
     } else {
       errorMessage = 'Unknown error occurred.'
     }
-    this.notificationService.handleError(errorMessage)
-    return EMPTY
+    return EMPTY.pipe(tap(() => this.notificationService.handleError(errorMessage)))
   }
 }
