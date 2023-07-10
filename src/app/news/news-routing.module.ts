@@ -6,9 +6,19 @@ import { CreateNewsComponent } from './components/createNews/create-news/create-
 import { SubscriptionComponent } from './components/sibscription/subscription/subscription.component'
 
 const routes: Routes = [
-  { path: '', component: NewsComponent, pathMatch: 'full' },
-  { path: 'create-news', component: CreateNewsComponent, canActivate: [AuthGuard] },
-  { path: 'subscribe', component: SubscriptionComponent, canActivate: [AuthGuard] },
+  { path: '', component: NewsComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  {
+    path: 'create-news',
+    component: CreateNewsComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'subscribe',
+    component: SubscriptionComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
 ]
 
 @NgModule({

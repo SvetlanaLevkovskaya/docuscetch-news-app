@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core'
 import { NewsService } from '../../../services/news.service'
 import { News } from '../../../models/news'
 import { Router } from '@angular/router'
+import { AuthService } from '../../../../core/services/auth.service'
 
 @Component({
   selector: 'app-create-news',
@@ -19,7 +20,11 @@ export class CreateNewsComponent {
 
   @Output() articleCreated = new EventEmitter<void>()
 
-  constructor(private newsService: NewsService, private router: Router) {}
+  constructor(
+    private newsService: NewsService,
+    private router: Router,
+    public authService: AuthService
+  ) {}
 
   createArticle() {
     this.newsService.addNews(this.article)
