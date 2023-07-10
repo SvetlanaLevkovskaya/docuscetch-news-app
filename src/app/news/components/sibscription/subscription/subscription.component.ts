@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
 import { AuthService } from '../../../../core/services/auth.service'
+import { Router } from '@angular/router'
+import { NotificationService } from '../../../../core/services/notification.service'
 
 @Component({
   selector: 'app-subscription',
@@ -7,5 +9,22 @@ import { AuthService } from '../../../../core/services/auth.service'
   styleUrls: ['./subscription.component.css'],
 })
 export class SubscriptionComponent {
-  constructor(public authService: AuthService) {}
+  selectedSubscription: string = ''
+
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
+
+  selectSubscription(subscription: string): void {
+    this.selectedSubscription = subscription
+  }
+
+  purchaseSubscription(): void {
+    this.notificationService.handleSuccess(
+      `User ${this.authService.userEmail} successfully purchased ${this.selectedSubscription} subscription.`
+    )
+    this.router.navigate(['/'])
+  }
 }

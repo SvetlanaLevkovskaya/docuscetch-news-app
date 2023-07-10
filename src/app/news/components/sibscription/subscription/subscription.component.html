@@ -1,4 +1,54 @@
 <app-header></app-header>
-<p>subscription works!</p>
 
-{{ authService.authRequest | async }}
+<div class="subscription-container">
+  <h2>Subscription Options:</h2>
+  <ul class="subscription-list">
+    <li>
+      <label class="subscription-option">
+        <input
+          type="radio"
+          name="subscription"
+          (change)="selectSubscription('basic')"
+          [checked]="selectedSubscription === 'basic'"
+        />
+        Basic Subscription
+      </label>
+      <ul class="benefits-list">
+        <li>Access to basic features</li>
+        <li>Support via email</li>
+      </ul>
+    </li>
+    <li>
+      <label class="subscription-option">
+        <input
+          type="radio"
+          name="subscription"
+          (change)="selectSubscription('premium')"
+          [checked]="selectedSubscription === 'premium'"
+        />
+        Premium Subscription
+      </label>
+      <ul class="benefits-list">
+        <li>Access to premium features</li>
+        <li>24/7 support</li>
+        <li>Exclusive content</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div *ngIf="selectedSubscription === 'basic'" class="subscription-details">
+    <h3>Basic Subscription Details:</h3>
+    <p>Purchase conditions: Available for <strong>$9.99/month</strong></p>
+    <p>Additional benefits: Access to basic features, Support via email</p>
+  </div>
+
+  <div *ngIf="selectedSubscription === 'premium'" class="subscription-details">
+    <h3>Premium Subscription Details:</h3>
+    <p>Purchase conditions: Available for <strong>$19.99/month</strong></p>
+    <p>Additional benefits: Access to premium features, 24/7 support, Exclusive content</p>
+  </div>
+
+  <button *ngIf="selectedSubscription" class="purchase-button" (click)="purchaseSubscription()">
+    Purchase
+  </button>
+</div>

@@ -1,0 +1,44 @@
+.subscription-container {
+  margin-left: 200px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.subscription-list {
+  list-style-type: none;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.benefits-list {
+  list-style-type: none;
+  margin-top: 15px;
+  padding: 0 0 0 20px;
+}
+
+.subscription-option {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.subscription-details {
+  margin-top: 20px;
+}
+
+.purchase-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  width: 300px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.purchase-button:hover {
+  background-color: #555;
+}
