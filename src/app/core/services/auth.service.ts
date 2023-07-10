@@ -3,15 +3,150 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Router } from '@angular/router'
 
-import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
+import { EMPTY } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 import { ResultCodeEnum } from '../enums/resultCode.enum'
 import { LoginRequestData, MeResponse } from '../models/auth.models'
-import { CommonResponseType } from '../models/core.models'
+
 import { NotificationService } from './notification.service'
-import { UserEmailService } from './userEmail.service'
+import { CommonResponseType } from '../models/core.models'
 
 @Injectable()
+export class AuthService {
+  isAuth = false
+  userEmail = ''
+
+  resolveAuthRequest: Function = () => {}
+  authRequest = new Promise(resolve => {
+    this.resolveAuthRequest = resolve
+  })
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
+
+  login(data: Partial<LoginRequestData>) {
+    this.http
+      .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
+      .pipe(catchError(this.errorHandler.bind(this)))
+      .subscribe(res => {
+        if (res.resultCode === ResultCodeEnum.success) {
+          console.log(this)
+          this.router.navigate(['/'])
+          this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
+        } else {
+          this.notificationService.handleError(res.messages[0])
+        }
+      })
+  }
+
+  logout() {
+    this.http
+      .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
+      .pipe(catchError(this.errorHandler.bind(this)))
+      .subscribe(res => {
+        if (res.resultCode === ResultCodeEnum.success) {
+          this.router.navigate(['/login'])
+        }
+      })
+  }
+
+  me() {
+    this.http
+      .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
+      .pipe(catchError(this.errorHandler.bind(this)))
+      .subscribe(res => {
+        if (res.resultCode == ResultCodeEnum.success) {
+          this.userEmail = res.data.email
+          this.isAuth = true
+        }
+        this.resolveAuthRequest()
+      })
+  }
+
+  private errorHandler(err: HttpErrorResponse) {
+    this.notificationService.handleError(err.message)
+    return EMPTY
+  }
+}
+
+/*export class AuthService {
+ isAuth = false
+
+ constructor(
+ private http: HttpClient,
+ private router: Router,
+ private notificationService: NotificationService,
+ private userEmailService: UserEmailService
+ ) {}
+
+ // eslint-disable-next-line @typescript-eslint/no-empty-function
+ resolveAuthRequest: any = () => {}
+
+ authRequest = new Promise(resolve => {
+ this.resolveAuthRequest = resolve
+ })
+
+ login(data: LoginRequestData) {
+ this.http
+ .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
+ .pipe(catchError(this.errorHandler.bind(this)))
+ .subscribe(res => {
+ if (res.resultCode === ResultCodeEnum.success) {
+ this.router.navigate(['/'])
+ this.notificationService.handleSuccess(
+ `User ${this.userEmailService.userEmail} successfully signed in!`
+ )
+ } else {
+ this.notificationService.handleError(res.messages[0])
+ }
+ })
+ }
+
+ logout() {
+ this.http
+ .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
+ .pipe(catchError(this.errorHandler.bind(this)))
+ .subscribe(res => {
+ if (res.resultCode === ResultCodeEnum.success) {
+ this.router.navigate(['/login'])
+ this.notificationService.handleSuccess('You have been logged out successfully!')
+ } else {
+ this.notificationService.handleError(res.messages[0])
+ }
+ })
+ }
+
+ me() {
+ this.http
+ .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
+ .pipe(catchError(this.errorHandler.bind(this)))
+ .subscribe(res => {
+ if (res.resultCode === ResultCodeEnum.success) {
+ this.isAuth = true
+ this.userEmailService.userEmail = res.data.email
+ }
+ this.resolveAuthRequest()
+ })
+ }
+
+ private errorHandler(err: HttpErrorResponse | null) {
+ let errorMessage: string
+
+ if (err && err.error && typeof err.error === 'string') {
+ errorMessage = err.error
+ } else {
+ errorMessage = 'Unknown error occurred.'
+ }
+ this.notificationService.handleError(errorMessage)
+ return EMPTY
+ }
+ }
+ */
+
+/*@Injectable()
 export class AuthService {
   private sessionTokenKey = 'sessionToken'
   private isAuthSubject = new BehaviorSubject<boolean>(false)
@@ -84,9 +219,9 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     console.log('Checking authentication status', this.isAuth$)
     return this.isAuth$
-  }
+  }*/
 
-  me(sessionToken: string): Observable<{ email: string; sessionToken: string }> {
+/*  me(sessionToken: string): Observable<{ email: string; sessionToken: string }> {
     return this.http.get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`).pipe(
       catchError(this.errorHandler.bind(this)),
       map(res => {
@@ -97,9 +232,9 @@ export class AuthService {
         }
       })
     )
-  }
+  }*/
 
-  private errorHandler(err: HttpErrorResponse | null) {
+/*  private errorHandler(err: HttpErrorResponse | null) {
     let errorMessage: string
 
     if (err && err.error && typeof err.error === 'string') {
@@ -109,4 +244,4 @@ export class AuthService {
     }
     return EMPTY.pipe(tap(() => this.notificationService.handleError(errorMessage)))
   }
-}
+}*/

@@ -1,21 +1,16 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { AuthService } from '../../../../core/services/auth.service'
-import { UserEmailService } from '../../../../core/services/userEmail.service'
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
-  userEmail: string | undefined
+export class HeaderComponent {
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService, private userEmailService: UserEmailService) {}
-
-  ngOnInit() {
-    this.userEmailService.userEmail$.subscribe(userEmail => {
-      this.userEmail = userEmail
-    })
+  get userEmail(): string | undefined {
+    return this.authService.userEmail
   }
 
   logout(): void {
