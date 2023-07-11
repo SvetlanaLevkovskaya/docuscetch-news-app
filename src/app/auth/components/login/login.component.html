@@ -2,17 +2,16 @@
   <div class="box">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="form">
       <div class="form-field">
-        <label>Email</label>
+        <label for="email">Email</label>
         <input
           type="text"
           formControlName="email"
           required
           autocomplete="email"
           class="input"
-          [ngClass]="{
-            inputError: email!.invalid && (email!.dirty || email!.touched),
-            inputSuccess: email!.valid
-          }"
+          [class.inputError]="email!.invalid && (email!.dirty || email!.touched)"
+          [class.inputSuccess]="email!.valid"
+          id="email"
         />
         <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="error">
           <div *ngIf="email!.errors?.['required']">Email is required</div>
@@ -21,17 +20,16 @@
       </div>
 
       <div class="form-field">
-        <label>Password</label>
+        <label for="password">Password</label>
         <input
           type="password"
           formControlName="password"
           required
           autocomplete="current-password"
           class="input"
-          [ngClass]="{
-            inputError: password!.invalid && (password!.dirty || password!.touched),
-            inputSuccess: password!.valid
-          }"
+          [class.inputError]="password!.invalid && (password!.dirty || password!.touched)"
+          [class.inputSuccess]="password!.valid"
+          id="password"
         />
         <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="error">
           <div *ngIf="password!.errors?.['required']">Password is required</div>

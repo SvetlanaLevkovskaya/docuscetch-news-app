@@ -28,7 +28,7 @@ The DocusketchNewsApp is a web application that allows users to read and browse 
 
 ## Usage
 
-1. Sign up or log in to the News App.
+1. Sign up or log in to the NewsInterfaces App.
 2. Browse the news articles on the homepage or use the search feature to find specific articles.
 3. Click on an article to view its details and read the full content.
 4. Explore additional features and benefits based on your subscription plan.

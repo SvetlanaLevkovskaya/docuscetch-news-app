@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { AuthService } from '../../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { NotificationService } from '../../../core/services/notification.service'
+import { Subscription } from '../../interfaces/subscription.interfaces'
 
 @Component({
   selector: 'app-subscription',
@@ -9,7 +10,8 @@ import { NotificationService } from '../../../core/services/notification.service
   styleUrls: ['./subscription.component.css'],
 })
 export class SubscriptionComponent {
-  selectedSubscription: string = 'basic'
+  protected readonly Subscription = Subscription
+  selectedSubscription: Subscription = Subscription.Basic
 
   constructor(
     public authService: AuthService,
@@ -17,11 +19,7 @@ export class SubscriptionComponent {
     private notificationService: NotificationService
   ) {}
 
-  ngOnInit() {
-    this.selectSubscription(this.selectedSubscription)
-  }
-
-  selectSubscription(subscription: string): void {
+  selectSubscription(subscription: Subscription): void {
     this.selectedSubscription = subscription
   }
 

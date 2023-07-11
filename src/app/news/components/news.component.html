@@ -19,13 +19,13 @@
     </button>
   </div>
 
-  <button class="btn-create" (click)="goToCreateNews()">Create News</button>
+  <button class="btn-create" (click)="goToCreateNews()">Create NewsInterfaces</button>
 </div>
 
 <div class="search-bar">
   <input type="text" placeholder="Search articles..." [(ngModel)]="searchQuery" />
   <div *ngIf="searchQuery" class="news-container">
-    <div *ngFor="let article of news | searchNews : searchQuery" class="news-article">
+    <div *ngFor="let article of filteredNews | searchNews : searchQuery" class="news-article">
       <h2>{{ article.title }}</h2>
       <p class="category">Category: {{ article.category }}</p>
       <p>{{ article.description }}</p>
@@ -38,9 +38,11 @@
   <div
     *ngFor="let article of filteredNews; let i = index"
     class="news-article"
-    [ngClass]="{ 'odd-article': i % 2 !== 1 }"
-    (click)="openArticle(article)"
+    [class.odd-article]="i % 2 !== 1"
+    (click)="goToArticle(article)"
+    (keydown.enter)="goToArticle(article)"
     [routerLink]="['/', article.id]"
+    tabindex="0"
   >
     <h2>{{ article.title }}</h2>
     <p class="category">Category: {{ article.category }}</p>

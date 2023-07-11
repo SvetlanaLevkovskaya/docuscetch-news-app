@@ -8,8 +8,8 @@
         <input
           type="radio"
           name="subscription"
-          (change)="selectSubscription('basic')"
-          [checked]="selectedSubscription === 'basic'"
+          (change)="selectSubscription(Subscription.Basic)"
+          [checked]="selectedSubscription === Subscription.Basic"
         />
         <strong> Basic Subscription</strong>
       </label>
@@ -23,8 +23,8 @@
         <input
           type="radio"
           name="subscription"
-          (change)="selectSubscription('premium')"
-          [checked]="selectedSubscription === 'premium'"
+          (change)="selectSubscription(Subscription.Premium)"
+          [checked]="selectedSubscription === Subscription.Premium"
         />
         <strong> Premium Subscription</strong>
       </label>
@@ -36,13 +36,13 @@
     </li>
   </ul>
 
-  <div *ngIf="selectedSubscription === 'basic'" class="subscription-details">
+  <div *ngIf="selectedSubscription === Subscription.Basic" class="subscription-details">
     <h3>Basic Subscription Details:</h3>
     <p>Purchase conditions: Available for <strong>$9.99/month</strong></p>
     <p>Additional benefits: Access to basic features, Support via email</p>
   </div>
 
-  <div *ngIf="selectedSubscription === 'premium'" class="subscription-details">
+  <div *ngIf="selectedSubscription === Subscription.Premium" class="subscription-details">
     <h3>Premium Subscription Details:</h3>
     <p>Purchase conditions: Available for <strong>$19.99/month</strong></p>
     <p>Additional benefits: Access to premium features, 24/7 support, Exclusive content</p>

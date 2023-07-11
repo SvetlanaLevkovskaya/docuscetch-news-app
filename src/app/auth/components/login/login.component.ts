@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from 'src/app/core/services/auth.service'
-import { LoginRequestData } from '../../../core/models/auth.models'
+import { LoginRequestDto } from '../../../core/interfaces/auth.interfaces'
 
 @Component({
   selector: 'app-login',
@@ -9,21 +9,16 @@ import { LoginRequestData } from '../../../core/models/auth.models'
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  loginForm: FormGroup
+  loginForm: FormGroup = this.formBuilder.group({
+    email: [
+      '',
+      [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,5}$')],
+    ],
+    password: ['', [Validators.required, Validators.minLength(3)]],
+    rememberMe: [false],
+  })
 
-  constructor(private formBuilder: FormBuilder, public authService: AuthService) {
-    this.loginForm = this.formBuilder.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,5}$'),
-        ],
-      ],
-      password: ['', [Validators.required, Validators.minLength(3)]],
-      rememberMe: [false],
-    })
-  }
+  constructor(private formBuilder: FormBuilder, public authService: AuthService) {}
 
   get email() {
     return this.loginForm.get('email')
@@ -34,7 +29,7 @@ export class LoginComponent {
   }
 
   onLoginSubmit() {
-    const value = this.loginForm.value as LoginRequestData
+    const value = this.loginForm.value as LoginRequestDto
     this.authService.login(value)
   }
 }

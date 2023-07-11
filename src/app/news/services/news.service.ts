@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { news } from '../data/news'
-import { News } from '../models/news'
+import { News } from '../interfaces/news.interfaces'
 
 @Injectable({
   providedIn: 'root',

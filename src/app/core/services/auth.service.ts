@@ -5,21 +5,16 @@ import { Router } from '@angular/router'
 
 import { EMPTY } from 'rxjs'
 import { catchError } from 'rxjs/operators'
-import { ResultCodeEnum } from '../enums/resultCode.enum'
-import { LoginRequestData, MeResponse } from '../models/auth.models'
+import { ResultCode } from '../enums/resultCode.enum'
 
 import { NotificationService } from './notification.service'
-import { CommonResponseType } from '../models/core.models'
+import { LoginRequestDto, MeResponse } from '../interfaces/auth.interfaces'
+import { CommonResponseType } from '../interfaces/core.interfaces'
 
 @Injectable()
 export class AuthService {
   isAuth = false
   userEmail = ''
-
-  resolveAuthRequest: Function = () => {}
-  authRequest = new Promise(resolve => {
-    this.resolveAuthRequest = resolve
-  })
 
   constructor(
     private http: HttpClient,
@@ -27,12 +22,20 @@ export class AuthService {
     private notificationService: NotificationService
   ) {}
 
-  login(data: Partial<LoginRequestData>) {
+  resolveAuthRequest: (value?: unknown) => void = (value?: unknown) => {
+    console.log(`Resolved with value: ${value}`)
+  }
+
+  authRequest = new Promise(resolve => {
+    this.resolveAuthRequest = resolve
+  })
+
+  login(data: Partial<LoginRequestDto>) {
     this.http
       .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
-      .pipe(catchError(this.errorHandler.bind(this)))
+      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
       .subscribe(res => {
-        if (res.resultCode === ResultCodeEnum.success) {
+        if (res.resultCode === ResultCode.success) {
           this.router.navigate(['/'])
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
@@ -44,9 +47,9 @@ export class AuthService {
   logout() {
     this.http
       .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
-      .pipe(catchError(this.errorHandler.bind(this)))
+      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
       .subscribe(res => {
-        if (res.resultCode === ResultCodeEnum.success) {
+        if (res.resultCode === ResultCode.success) {
           this.router.navigate(['/login'])
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully logout!`)
         }
@@ -56,9 +59,9 @@ export class AuthService {
   me() {
     this.http
       .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
-      .pipe(catchError(this.errorHandler.bind(this)))
+      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
       .subscribe(res => {
-        if (res.resultCode == ResultCodeEnum.success) {
+        if (res.resultCode == ResultCode.success) {
           this.userEmail = res.data.email
           this.isAuth = true
         }
@@ -66,7 +69,7 @@ export class AuthService {
       })
   }
 
-  private errorHandler(err: HttpErrorResponse) {
+  private errorHandler = (err: HttpErrorResponse) => {
     this.notificationService.handleError(err.message)
     return EMPTY
   }

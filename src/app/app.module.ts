@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module'
 import { SharedModule } from './shared/shared.module'
 import { AuthGuard } from './core/guards/auth.guard'
 import { NewsRoutingModule } from './news/news-routing.module'
-import { PageNotFoundRoutingModule } from './page-not-found/page-not-found-routing.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +18,6 @@ import { PageNotFoundRoutingModule } from './page-not-found/page-not-found-routi
     HttpClientModule,
     SharedModule,
     NewsRoutingModule,
-    PageNotFoundRoutingModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

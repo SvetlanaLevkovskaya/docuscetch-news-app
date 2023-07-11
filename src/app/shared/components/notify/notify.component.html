@@ -2,10 +2,8 @@
   <div class="notification">
     <div
       class="notification-item"
-      [ngClass]="{
-        'notification-item-success': notify.severity === 'success',
-        'notification-item-error': notify.severity === 'error'
-      }"
+      [class.notification-item-success]="notify.severity === 'success'"
+      [class.notification-item-error]="notify.severity === 'error'"
     >
       {{ notify.message }}
       <button class="notification-close" (click)="closeNotification()">x</button>

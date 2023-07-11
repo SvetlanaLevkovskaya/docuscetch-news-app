@@ -1,8 +1,7 @@
 import { Component } from '@angular/core'
 import { NewsService } from '../services/news.service'
-import { News } from '../models/news'
 import { Router } from '@angular/router'
-import { AuthService } from '../../core/services/auth.service'
+import { News } from '../interfaces/news.interfaces'
 
 @Component({
   selector: 'app-news',
@@ -10,52 +9,34 @@ import { AuthService } from '../../core/services/auth.service'
   styleUrls: ['./news.component.css'],
 })
 export class NewsComponent {
-  news: News[] = []
-  filteredNews: News[] = []
-  categories: string[] = []
-  searchQuery: string = ''
+  filteredNews: News[] = this.newsService.getNews()
+  categories: string[] = this.getUniqueCategories()
+  searchQuery = ''
+  selectedCategory = 'All'
 
-  selectedCategory: string = 'All'
-
-  constructor(
-    private newsService: NewsService,
-    private router: Router,
-    public authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    this.updateNews()
-    this.categories = this.getUniqueCategories()
-  }
-
-  updateNews() {
-    this.news = this.newsService.getNews()
-    this.filterByCategory(this.selectedCategory)
-  }
+  constructor(private newsService: NewsService, private router: Router) {}
 
   filterByCategory(category: string) {
     if (category === 'All') {
-      this.filteredNews = this.news
+      this.filteredNews = this.newsService.getNews()
     } else {
-      this.filteredNews = this.news.filter(article => article.category === category)
+      this.filteredNews = this.newsService
+        .getNews()
+        .filter(article => article.category === category)
     }
     this.selectedCategory = category
-  }
-
-  getUniqueCategories(): string[] {
-    const categories = this.news.map(article => article.category)
-    return [...new Set(categories)]
   }
 
   goToCreateNews() {
     this.router.navigate(['/create-news'])
   }
 
-  onArticleCreated() {
-    this.updateNews()
+  goToArticle(article: News) {
+    this.router.navigate(['/', article.id])
   }
 
-  openArticle(article: News) {
-    this.router.navigate(['/', article.id])
+  private getUniqueCategories(): string[] {
+    const categories = this.newsService.getNews().map(article => article.category)
+    return [...new Set(categories)]
   }
 }

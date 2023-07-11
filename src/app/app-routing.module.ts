@@ -11,10 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(el => el.AuthModule),
   },
   /*  {
-    path: '**',
-    loadChildren: () =>
-      import('./page-not-found/page-not-found.module').then(el => el.PageNotFoundModule),
-  },*/
+   path: '**',
+   component: PageNotFoundComponent,
+   },*/
+  /*{ path: '', pathMatch: 'full', redirectTo: 'login' },*/
 ]
 
 @NgModule({

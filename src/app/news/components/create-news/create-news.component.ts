@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core'
 import { NewsService } from '../../services/news.service'
-import { News } from '../../models/news'
+
 import { Router } from '@angular/router'
 import { AuthService } from '../../../core/services/auth.service'
 import { NotificationService } from '../../../core/services/notification.service'
+import { News } from '../../interfaces/news.interfaces'
 
 @Component({
   selector: 'app-create-news',

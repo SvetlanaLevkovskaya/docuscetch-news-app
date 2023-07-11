@@ -7,8 +7,7 @@ import { AuthService } from './core/services/auth.service'
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
-  ngOnInit() {
+  constructor(private authService: AuthService) {
     this.authService.me()
   }
 }
