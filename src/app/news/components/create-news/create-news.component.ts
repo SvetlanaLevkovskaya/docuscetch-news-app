@@ -3,6 +3,7 @@ import { NewsService } from '../../services/news.service'
 import { News } from '../../models/news'
 import { Router } from '@angular/router'
 import { AuthService } from '../../../core/services/auth.service'
+import { NotificationService } from '../../../core/services/notification.service'
 
 @Component({
   selector: 'app-create-news',
@@ -23,7 +24,8 @@ export class CreateNewsComponent {
   constructor(
     private newsService: NewsService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private notificationService: NotificationService
   ) {}
 
   createArticle() {
@@ -36,6 +38,10 @@ export class CreateNewsComponent {
       description: '',
       date: '',
     }
+
+    this.notificationService.handleSuccess(
+      `User ${this.authService.userEmail} successfully published article!.`
+    )
 
     this.router.navigate(['/'])
   }
