@@ -10,6 +10,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./auth/auth.module').then(el => el.AuthModule),
   },
+  /*  {
+    path: '**',
+    loadChildren: () =>
+      import('./page-not-found/page-not-found.module').then(el => el.PageNotFoundModule),
+  },*/
 ]
 
 @NgModule({
