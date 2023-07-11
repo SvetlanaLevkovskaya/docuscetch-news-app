@@ -40,7 +40,7 @@ export class CreateNewsComponent {
     }
 
     this.notificationService.handleSuccess(
-      `User ${this.authService.userEmail} successfully published article!.`
+      `User ${this.authService.userEmail} successfully published article!`
     )
 
     this.router.navigate(['/'])

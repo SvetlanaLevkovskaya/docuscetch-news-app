@@ -27,7 +27,7 @@ export class SubscriptionComponent {
 
   purchaseSubscription(): void {
     this.notificationService.handleSuccess(
-      `User ${this.authService.userEmail} successfully purchased ${this.selectedSubscription} subscription.`
+      `User ${this.authService.userEmail} successfully purchased ${this.selectedSubscription} subscription!`
     )
     this.router.navigate(['/'])
   }

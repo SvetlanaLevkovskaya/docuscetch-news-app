@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { NewsService } from '../../services/news.service'
-import { AuthService } from '../../../core/services/auth.service'
+import { News } from '../../models/news'
 
 @Component({
   selector: 'app-article',
@@ -9,13 +9,15 @@ import { AuthService } from '../../../core/services/auth.service'
   styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {
-  article: any
+  article: News | undefined = {
+    id: '',
+    title: '',
+    description: '',
+    category: '',
+    date: '',
+  }
 
-  constructor(
-    private route: ActivatedRoute,
-    private newsService: NewsService,
-    public authService: AuthService
-  ) {}
+  constructor(private route: ActivatedRoute, private newsService: NewsService) {}
 
   ngOnInit() {
     const articleId = this.route.snapshot.paramMap.get('id')
