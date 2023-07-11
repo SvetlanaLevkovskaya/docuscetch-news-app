@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+.activeLink {
+  color: #e85c5c;
+}
+
 .navigation ul {
   list-style: none;
   padding: 0;
