@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { NewsComponent } from './components/news.component'
-import { AuthGuard } from '../core/guards/auth.guard'
+import { AuthGuard } from '../auth/guards/auth.guard'
 import { CreateNewsComponent } from './components/create-news/create-news.component'
 import { SubscriptionComponent } from './components/sibscription/subscription.component'
 import { ArticleComponent } from './components/article/article.component'

@@ -5,9 +5,9 @@ import { Router } from '@angular/router'
 
 import { EMPTY } from 'rxjs'
 import { catchError } from 'rxjs/operators'
-import { ResultCode } from '../enums/resultCode.enum'
+import { ResultCode } from '../enam/resultCode.enum'
 
-import { NotificationService } from './notification.service'
+import { NotificationService } from '../../shared/services/notification.service'
 import { LoginRequestDto, MeResponse } from '../interfaces/auth.interfaces'
 import { CommonResponseType } from '../interfaces/core.interfaces'
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
-import { AuthService } from '../../../core/services/auth.service'
+import { AuthService } from '../../../auth/services/auth.service'
 import { Router } from '@angular/router'
-import { NotificationService } from '../../../core/services/notification.service'
+import { NotificationService } from '../../../shared/services/notification.service'
 import { Subscription } from '../../interfaces/subscription.interfaces'
 
 @Component({

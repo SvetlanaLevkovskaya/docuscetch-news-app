@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { NotificationService } from '../../../core/services/notification.service'
-import { Notify } from '../../../core/interfaces/notify.interfaces'
+import { NotificationService } from '../../services/notification.service'
+import { Notify } from '../../interfaces/notify.interfaces'
 
 @Component({
   selector: 'app-notify',
