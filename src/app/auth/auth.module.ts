@@ -8,7 +8,6 @@ import { AuthRoutingModule } from './auth-routing.module'
 import { AuthService } from './services/auth.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { CredentialsInterceptor } from './interseptors/credentials.interceptor'
-import { NotificationService } from '../shared/services/notification.service'
 
 @NgModule({
   declarations: [LoginComponent],
@@ -16,7 +15,6 @@ import { NotificationService } from '../shared/services/notification.service'
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true },
     AuthService,
-    NotificationService,
   ],
 })
 export class AuthModule {}

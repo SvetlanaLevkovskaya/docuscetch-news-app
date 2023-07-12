@@ -12,7 +12,13 @@ import { Notify } from '../../interfaces/notify.interfaces'
 export class NotifyComponent {
   notify$?: Observable<Notify | null> = this.notificationService.notify$
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService) {
+    console.log('NotifyComponent created')
+
+    this.notify$?.subscribe(notify => {
+      console.log('Notification:', notify)
+    })
+  }
 
   closeNotification() {
     this.notificationService.clear()

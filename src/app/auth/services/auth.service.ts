@@ -20,7 +20,9 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    console.log('NotificationService from AuthService:', notificationService)
+  }
 
   resolveAuthRequest: (value?: unknown) => void = (value?: unknown) => {
     console.log(`Resolved with value: ${value}`)
@@ -31,15 +33,20 @@ export class AuthService {
   })
 
   login(data: Partial<LoginRequestDto>) {
+    console.log('Login data:', data)
+    this.userEmail = data.email || ''
+    console.log('this.userEmail before handlesuccess', this.userEmail)
     this.http
       .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
       .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
+          console.log('Login successful')
           console.log('this.userEmail', this.userEmail)
           this.router.navigate(['/'])
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
+          console.log('Login failed')
           this.notificationService.handleError(res.messages[0])
         }
       })
@@ -48,7 +55,7 @@ export class AuthService {
   logout() {
     this.http
       .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
-      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
+      .pipe(catchError(err => this.errorHandler(err)))
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
           this.router.navigate(['/login'])
@@ -61,10 +68,10 @@ export class AuthService {
   me() {
     this.http
       .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
-      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
+      .pipe(catchError(err => this.errorHandler(err)))
       .subscribe(res => {
         if (res.resultCode == ResultCode.success) {
-          this.userEmail = res.data.email
+          this.userEmail = res.data.email || ''
           this.isAuth = true
         }
         this.resolveAuthRequest()
