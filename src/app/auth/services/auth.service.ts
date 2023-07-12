@@ -24,26 +24,16 @@ export class AuthService {
     console.log('NotificationService from AuthService:', notificationService)
   }
 
-  resolveAuthRequest: (value?: unknown) => void = (value?: unknown) => {
-    console.log(`Resolved with value: ${value}`)
-  }
-
-  authRequest = new Promise(resolve => {
-    this.resolveAuthRequest = resolve
-  })
-
   login(data: Partial<LoginRequestDto>) {
     console.log('Login data:', data)
     this.userEmail = data.email || ''
-    console.log('this.userEmail before handlesuccess', this.userEmail)
     this.http
       .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
       .pipe(catchError(err => this.errorHandler(err)))
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
-          console.log('Login successful')
-          console.log('this.userEmail', this.userEmail)
-          this.router.navigate(['/'])
+          this.isAuth = true
+          this.router.navigate(['/']).then(() => console.log('navigate'))
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
           console.log('Login failed')
@@ -74,7 +64,6 @@ export class AuthService {
           this.userEmail = res.data.email || ''
           this.isAuth = true
         }
-        this.resolveAuthRequest()
       })
   }
 

@@ -1,10 +1,12 @@
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core'
+import { authGuard } from './auth/guards/auth.guard'
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: 'news',
     loadChildren: () => import('./news/news.module').then(el => el.NewsModule),
+    canActivate: [authGuard],
   },
   {
     path: 'login',
