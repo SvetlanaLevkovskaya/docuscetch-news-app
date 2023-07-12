@@ -38,7 +38,7 @@ export class AuthService {
     console.log('this.userEmail before handlesuccess', this.userEmail)
     this.http
       .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
-      .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
+      .pipe(catchError(err => this.errorHandler(err)))
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
           console.log('Login successful')
