@@ -36,6 +36,7 @@ export class AuthService {
       .pipe(catchError(err => this.errorHandler(err))) // Use arrow function callback here
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
+          console.log('this.userEmail', this.userEmail)
           this.router.navigate(['/'])
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
@@ -51,6 +52,7 @@ export class AuthService {
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
           this.router.navigate(['/login'])
+          console.log('this.userEmail - logout', this.userEmail)
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully logout!`)
         }
       })
