@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocuscetch_news_app=self.webpackChunkdocuscetch_news_app||[]).push([[534],{5534:(t,o,_)=>{_.r(o),_.d(o,{NewsModule:()=>l});var u=_(6814),E=_(95),a=_(8297),d=_(6208),n=_(4946);let l=(()=>{class s{}return s.\u0275fac=function(e){return new(e||s)},s.\u0275mod=n.oAB({type:s}),s.\u0275inj=n.cJS({imports:[u.ez,a.H,E.u5,d.m]}),s})()}}]);
