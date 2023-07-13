@@ -44,6 +44,6 @@ export class CreateNewsComponent {
       `User ${this.authService.userEmail} successfully published article!`
     )
 
-    this.router.navigate(['/'])
+    this.router.navigate(['/news'])
   }
 }

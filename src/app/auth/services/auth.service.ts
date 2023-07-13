@@ -33,7 +33,7 @@ export class AuthService {
       .subscribe(res => {
         if (res.resultCode === ResultCode.success) {
           this.isAuth = true
-          this.router.navigate(['/']).then(() => console.log('navigate'))
+          this.router.navigate(['/news']).then(() => console.log('navigate'))
           this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
         } else {
           console.log('Login failed')

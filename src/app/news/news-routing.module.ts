@@ -22,7 +22,7 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [authGuard],
   },
-  { path: ':id', component: ArticleComponent, pathMatch: 'full', canActivate: [authGuard] },
+  { path: 'news/:id', component: ArticleComponent, pathMatch: 'full', canActivate: [authGuard] },
 ]
 
 @NgModule({

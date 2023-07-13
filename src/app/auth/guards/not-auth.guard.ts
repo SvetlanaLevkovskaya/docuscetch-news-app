@@ -6,7 +6,7 @@ export const notAuthGuard = () => {
   const authService = inject(AuthService)
   const router = inject(Router)
   const isAuth: boolean = authService.isAuth
-  console.log('authGuard', authService.isAuth)
+  console.log('authGuard', isAuth)
   if (!isAuth && !router.url.includes('login')) {
     router.navigate(['/login'])
   }
