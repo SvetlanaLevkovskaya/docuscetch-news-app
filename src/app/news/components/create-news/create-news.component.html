@@ -10,7 +10,9 @@
 
     <div class="form-group">
       <label for="category">Category:</label>
-      <input type="text" [(ngModel)]="article.category" name="category" id="category" required />
+      <select [(ngModel)]="article.category" name="category" id="category" required>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
     </div>
 
     <div class="form-group">

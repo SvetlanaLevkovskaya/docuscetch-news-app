@@ -20,6 +20,8 @@ export class CreateNewsComponent {
     date: '',
   }
 
+  categories: string[] = ['Health', 'Technology', 'Science', 'Arts', 'Finance']
+
   @Output() articleCreated = new EventEmitter<void>()
   //позволяет компоненту CreateNewsComponent генерировать событие articleCreated
   // и сообщать другим компонентам о создании новой статьи.

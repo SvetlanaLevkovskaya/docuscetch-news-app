@@ -13,6 +13,6 @@ export class NewsService {
   }
 
   addNews(article: News) {
-    this.newsData.push(article)
+    this.newsData.unshift(article)
   }
 }

@@ -23,6 +23,15 @@ textarea {
   box-sizing: border-box;
 }
 
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 700px;
+}
+
 button {
   margin-top: 20px;
 }
