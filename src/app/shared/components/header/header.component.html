@@ -19,9 +19,9 @@
   </nav>
 
   <div class="user-info">
-    <span>
+    <span *ngIf="userEmail">
       Welcome, <strong>{{ userEmail }} </strong>!
     </span>
-    <button class="button" (click)="logout()">Logout</button>
+    <button *ngIf="userEmail" class="button" (click)="logout()">Logout</button>
   </div>
 </header>

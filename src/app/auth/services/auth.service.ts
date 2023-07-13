@@ -69,6 +69,6 @@ export class AuthService {
 
   private errorHandler = (err: HttpErrorResponse) => {
     this.notificationService.handleError(err.message)
-    return EMPTY
+    return EMPTY //завершить поток данных без передачи значений дальше.
   }
 }

@@ -40,7 +40,7 @@
     [class.odd-article]="i % 2 !== 1"
     (click)="goToArticle(article)"
     (keydown.enter)="goToArticle(article)"
-    [routerLink]="['/', article.id]"
+    [routerLink]="['/news', article.id]"
     tabindex="0"
   >
     <h2>{{ article.title }}</h2>

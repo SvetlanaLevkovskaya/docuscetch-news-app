@@ -32,7 +32,7 @@ export class NewsComponent {
   }
 
   goToArticle(article: News) {
-    this.router.navigate(['news', article.id])
+    this.router.navigate(['/news', article.id])
   }
 
   private getUniqueCategories(): string[] {

@@ -1,7 +1,7 @@
 <app-header></app-header>
-<div class="article-details-container">
-  <h2>{{ article?.title }}</h2>
-  <p class="category">Category: {{ article?.category }}</p>
-  <p>{{ article?.description }}</p>
-  <p class="date">Published: {{ article?.date }}</p>
+<div *ngIf="article" class="article-details-container">
+  <h2>{{ article.title }}</h2>
+  <p class="category">Category: {{ article.category }}</p>
+  <p>{{ article.description }}</p>
+  <p class="date">Published: {{ article.date }}</p>
 </div>

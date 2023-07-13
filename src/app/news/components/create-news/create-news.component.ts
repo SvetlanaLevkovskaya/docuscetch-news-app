@@ -21,6 +21,8 @@ export class CreateNewsComponent {
   }
 
   @Output() articleCreated = new EventEmitter<void>()
+  //позволяет компоненту CreateNewsComponent генерировать событие articleCreated
+  // и сообщать другим компонентам о создании новой статьи.
 
   constructor(
     private newsService: NewsService,

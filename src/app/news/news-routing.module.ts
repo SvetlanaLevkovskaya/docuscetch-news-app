@@ -7,7 +7,7 @@ import { SubscriptionComponent } from './components/sibscription/subscription.co
 import { ArticleComponent } from './components/article/article.component'
 
 const routes: Routes = [
-  { path: '', component: NewsComponent, pathMatch: 'full', canActivate: [authGuard] },
+  { path: '', component: NewsComponent, pathMatch: 'full' },
 
   {
     path: 'create-news',
@@ -22,7 +22,11 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [authGuard],
   },
-  { path: 'news/:id', component: ArticleComponent, pathMatch: 'full', canActivate: [authGuard] },
+  { path: ':id', component: ArticleComponent, pathMatch: 'full', canActivate: [authGuard] },
+  /*  {
+   path: '**',
+   component: PageNotFoundComponent,
+   },*/
 ]
 
 @NgModule({

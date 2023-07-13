@@ -14,7 +14,7 @@ const routes: Routes = [
    path: '**',
    component: PageNotFoundComponent,
    },*/
-  /*{ path: '', pathMatch: 'full', redirectTo: 'login' },*/
+  { path: '', redirectTo: '/news', pathMatch: 'full' },
 ]
 
 @NgModule({
