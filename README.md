@@ -12,10 +12,10 @@ The DocusketchNewsApp is a web application that allows users to read and browse 
 
 ## Technologies Used
 
-- Angular: A JavaScript framework for building web applications
+- Angular: A TypeScript framework for building web applications
 - HTML/CSS: Markup and styling for the user interface
 - TypeScript: A typed superset of JavaScript used in Angular applications
-- RESTful API: Integration with external news APIs for fetching news data
+- RESTful API: Integration with external APIs
 - RxJS: Reactive programming library for handling asynchronous data streams
 
 ## Installation
@@ -28,7 +28,7 @@ The DocusketchNewsApp is a web application that allows users to read and browse 
 
 ## Usage
 
-1. Sign up or log in to the NewsInterfaces App.
+1. Sign in to the DocusketchNewsApp.
 2. Browse the news articles on the homepage or use the search feature to find specific articles.
 3. Click on an article to view its details and read the full content.
 4. Explore additional features and benefits based on your subscription plan.
