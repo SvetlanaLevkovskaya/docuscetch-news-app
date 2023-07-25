@@ -13,7 +13,6 @@ const routes: Routes = [
     path: 'create-news',
     component: CreateNewsComponent,
     pathMatch: 'full',
-
     canActivate: [authGuard],
   },
   {
@@ -23,10 +22,6 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   { path: ':id', component: ArticleComponent, pathMatch: 'full', canActivate: [authGuard] },
-  /*  {
-   path: '**',
-   component: PageNotFoundComponent,
-   },*/
 ]
 
 @NgModule({

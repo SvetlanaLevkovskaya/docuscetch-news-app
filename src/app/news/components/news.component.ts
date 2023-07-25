@@ -28,7 +28,7 @@ export class NewsComponent {
   }
 
   goToCreateNews() {
-    this.router.navigate(['/create-news'])
+    this.router.navigate(['/news/create-news'])
   }
 
   goToArticle(article: News) {
