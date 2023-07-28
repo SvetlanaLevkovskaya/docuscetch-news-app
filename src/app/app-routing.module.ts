@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./auth/auth.module').then(el => el.AuthModule),
   },
-  { path: '', redirectTo: '/news', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '**',
     component: PageNotFoundComponent,
