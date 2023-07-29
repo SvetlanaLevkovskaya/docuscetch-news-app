@@ -11,10 +11,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./auth/auth.module').then(el => el.AuthModule),
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'news', pathMatch: 'full' },
+  { path: 'not-found', component: PageNotFoundComponent },
   {
     path: '**',
-    component: PageNotFoundComponent,
+    redirectTo: '/not-found',
   },
 ]
 
