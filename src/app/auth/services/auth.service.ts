@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Router } from '@angular/router'
 
-import { EMPTY } from 'rxjs'
+import { EMPTY, tap } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { ResultCode } from '../enam/resultCode.enum'
 
@@ -56,15 +56,21 @@ export class AuthService {
   }
 
   me() {
-    this.http
-      .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
-      .pipe(catchError(err => this.errorHandler(err)))
-      .subscribe(res => {
+    return this.http.get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`).pipe(
+      catchError(err => this.errorHandler(err)),
+      tap(res => {
         if (res.resultCode == ResultCode.success) {
           this.userEmail = res.data.email || ''
           this.isAuth = true
         }
       })
+    )
+    /*  .subscribe(res => {
+     if (res.resultCode == ResultCode.success) {
+     this.userEmail = res.data.email || ''
+     this.isAuth = true
+     }
+     })*/
   }
 
   private errorHandler = (err: HttpErrorResponse) => {

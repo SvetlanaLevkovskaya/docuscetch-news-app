@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
@@ -8,11 +8,22 @@ import { SharedModule } from './shared/shared.module'
 import { CredentialsInterceptor } from './auth/interseptors/credentials.interceptor'
 import { AuthService } from './auth/services/auth.service'
 import { NotificationService } from './shared/services/notification.service'
+import { EMPTY } from 'rxjs'
+
+export function initAuth(authService: AuthService) {
+  return () => (!authService.isAuth ? authService.me() : EMPTY)
+}
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, SharedModule],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initAuth,
+      deps: [AuthService],
+      multi: true,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true },
     AuthService,
     NotificationService,
