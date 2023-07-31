@@ -1,37 +1,46 @@
 import { News } from '../interfaces/news.interfaces'
-import { ActivatedRouteSnapshot, Router } from '@angular/router'
+import { ResolveFn, Router } from '@angular/router'
 import { NewsService } from '../services/news.service'
-import { from, lastValueFrom, map, Observable, of } from 'rxjs'
+import { finalize, from, lastValueFrom, of, switchMap } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { inject } from '@angular/core'
 
-export const articleResolver: (
-  route: ActivatedRouteSnapshot
-) => Observable<News | undefined> = route => {
-  const newsService = inject(NewsService)
-  const router = inject(Router)
-  const spinner = inject(NgxSpinnerService)
+//экспортируем функцию articleResolver для использования ее в маршруте
+export const articleResolver: ResolveFn<News | undefined> = route => {
+  // Injecting dependencies.
+  const newsService = inject(NewsService) //внедряем сервис NewsService
+  const router = inject(Router) //внедряем сервис Router
+  const spinner = inject(NgxSpinnerService) //внедряем сервис NgxSpinnerService
 
-  spinner.show()
-  const articleId = route.paramMap.get('id')
-  const articlePromise = newsService.getNewsById(articleId)
+  // Show spinner and get article ID.
+  spinner.show().then(r => r) //показываем спиннер
+  const articleId = route.paramMap.get('id') //получаем идентификатор статьи из параметров маршрута
+  // Get the article from the service.
+  const articlePromise = newsService.getNewsById(articleId) //получаем промис, который будет разрешен, когда статья будет получена из сервиса.
 
+  // Convert the Promise to an Observable and switch to a new Observable if needed.
+  // используем операторы from и lastValueFrom, чтобы преобразовать промис в Observable и далее использовать операторы в цепочке
   return from(lastValueFrom(articlePromise)).pipe(
-    map(article => {
+    // используем оператор switchMap, чтобы переключаться на новый Observable в зависимости от результата предыдущего
+    switchMap(article => {
       if (article) {
-        spinner.hide()
-        return article
+        // If the article exists, return an Observable with the article.
+        return of(article)
       } else {
-        spinner.hide()
-        router.navigate(['/not-found'])
-        return undefined
+        // If the article doesn't exist, navigate to the not-found page and return an Observable with undefined.
+        router.navigate(['/not-found']).then(r => r)
+        return of(undefined)
       }
     }),
     catchError(() => {
-      spinner.hide()
-      router.navigate(['/not-found'])
-      return of(undefined).pipe(map(() => undefined as News | undefined))
+      // If there is an error, navigate to the not-found page and return an Observable with undefined.
+      router.navigate(['/not-found']).then(r => r)
+      return of(undefined)
+    }),
+    finalize(() => {
+      // Hide the spinner.
+      spinner.hide().then(r => r)
     })
   )
 }
