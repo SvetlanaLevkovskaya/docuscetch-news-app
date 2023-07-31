@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs'
 })
 export class ArticleComponent implements OnDestroy {
   article: News | undefined
+  //создается отдельный экземпляр объекта Subscription для каждой подписки на запрос.
+  //Это может быть полезно, если в компоненте есть несколько запросов с разными условиями подписки.
   private articleSubscription: Subscription
 
   constructor(private route: ActivatedRoute) {
