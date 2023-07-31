@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { News } from '../../interfaces/news.interfaces'
 import { NgxSpinnerService } from 'ngx-spinner'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-article',
@@ -9,12 +10,17 @@ import { NgxSpinnerService } from 'ngx-spinner'
   styleUrls: ['./article.component.css'],
   providers: [NgxSpinnerService],
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnDestroy {
   article: News | undefined
+  private articleSubscription: Subscription
 
   constructor(private route: ActivatedRoute) {
-    this.route.data.subscribe(({ article }) => {
+    this.articleSubscription = this.route.data.subscribe(({ article }) => {
       this.article = article
     })
+  }
+
+  ngOnDestroy(): void {
+    this.articleSubscription.unsubscribe()
   }
 }
