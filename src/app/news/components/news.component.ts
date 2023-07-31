@@ -32,7 +32,7 @@ export class NewsComponent {
   }
 
   goToArticle(article: News) {
-    this.router.navigate(['/news/article', article.id])
+    this.router.navigate(['/news/article', article.id], { state: { isLoading: true } })
   }
 
   private getUniqueCategories(): string[] {
