@@ -1,8 +1,8 @@
-import { Injectable, OnDestroy } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 
-import { EMPTY, Observable, Subscription, tap } from 'rxjs'
+import { EMPTY, firstValueFrom } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { ResultCode } from '../enam/resultCode.enum'
 
@@ -12,11 +12,9 @@ import { CommonResponseType } from '../interfaces/core.interfaces'
 import { Router } from '@angular/router'
 
 @Injectable()
-export class AuthService implements OnDestroy {
+export class AuthService {
   isAuth = false
   userEmail = ''
-  //Объект Subscription позволяет добавлять все подписки в один контейнер, что упрощает управление ими.
-  private subscriptions = new Subscription()
 
   constructor(
     private http: HttpClient,
@@ -24,61 +22,69 @@ export class AuthService implements OnDestroy {
     private router: Router
   ) {}
 
-  login(data: Partial<LoginRequestDto>): void {
+  async login(data: Partial<LoginRequestDto>): Promise<void> {
     this.userEmail = data.email || ''
-    this.http
-      .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
-      .pipe(
-        catchError(this.errorHandler),
-        tap(res => {
-          if (res.resultCode === ResultCode.success) {
-            this.handleSuccessLogin()
-          } else {
-            this.notificationService.handleError(res.messages[0])
-          }
-        })
+    try {
+      const res = await firstValueFrom(
+        this.http
+          .post<
+            CommonResponseType<{
+              userId: number
+            }>
+          >(`${environment.baseUrl}/auth/login`, data)
+          .pipe(catchError(err => this.errorHandler(err)))
       )
-      .subscribe()
+      if (res.resultCode === ResultCode.success) {
+        this.handleSuccessLogin()
+      } else {
+        this.notificationService.handleError(res.messages[0])
+      }
+    } catch (err) {
+      await this.errorHandler(err as Error | HttpErrorResponse)
+    }
   }
 
-  logout(): void {
-    this.http
-      .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
-      .pipe(
-        catchError(this.errorHandler),
-        tap(res => {
-          if (res.resultCode === ResultCode.success) {
-            this.handleSuccessLogout(this.userEmail)
-          }
-        })
+  async logout(): Promise<void> {
+    try {
+      const res = await firstValueFrom(
+        this.http
+          .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
+          .pipe(catchError(err => this.errorHandler(err)))
       )
-      .subscribe()
+      if (res.resultCode === ResultCode.success) {
+        this.handleSuccessLogout(this.userEmail)
+      }
+    } catch (err) {
+      await this.errorHandler(err as Error | HttpErrorResponse)
+    }
   }
 
-  me(): Observable<CommonResponseType<MeResponse>> {
-    return this.http.get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`).pipe(
-      catchError(this.errorHandler),
-      tap(res => {
-        if (res.resultCode === ResultCode.success) {
-          this.userEmail = res.data.email || ''
-          this.isAuth = true
-        }
-      })
-    )
+  async me(): Promise<CommonResponseType<MeResponse>> {
+    try {
+      const res = await firstValueFrom(
+        this.http
+          .get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`)
+          .pipe(catchError(err => this.errorHandler(err)))
+      )
+      if (res.resultCode === ResultCode.success) {
+        this.userEmail = res.data.email || ''
+        this.isAuth = true
+      }
+      return res
+    } catch (err) {
+      await this.errorHandler(err as Error | HttpErrorResponse)
+      return firstValueFrom(EMPTY)
+    }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
-  }
-
-  private errorHandler = (err: HttpErrorResponse): Observable<never> => {
+  private errorHandler = async (err: Error | HttpErrorResponse): Promise<never> => {
     this.notificationService.handleError(err.message)
-    return EMPTY
+    return Promise.reject(err)
   }
 
   private handleSuccessLogin(): void {
     this.isAuth = true
-    this.router.navigate(['/news']).then(() => console.log('navigate'))
+    this.router.navigate(['/news']).then(r => console.log(r))
     this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
   }
 
@@ -89,65 +95,3 @@ export class AuthService implements OnDestroy {
     this.notificationService.handleSuccess(`User ${userEmail} successfully logged out!`)
   }
 }
-
-/*@Injectable()
- export class AuthService {
- isAuth = false
- userEmail = ''
-
- constructor(
- private http: HttpClient,
- private router: Router,
- private notificationService: NotificationService
- ) {
- console.log('NotificationService from AuthService:', notificationService)
- }
-
- login(data: Partial<LoginRequestDto>) {
- console.log('Login data:', data)
- this.userEmail = data.email || ''
- this.http
- .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
- .pipe(catchError(err => this.errorHandler(err)))
- .subscribe(res => {
- if (res.resultCode === ResultCode.success) {
- this.isAuth = true
- this.router.navigate(['/news']).then(() => console.log('navigate'))
- this.notificationService.handleSuccess(`User ${this.userEmail} successfully signed in!`)
- } else {
- console.log('Login failed')
- this.notificationService.handleError(res.messages[0])
- }
- })
- }
-
- logout() {
- this.http
- .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
- .pipe(catchError(err => this.errorHandler(err)))
- .subscribe(res => {
- if (res.resultCode === ResultCode.success) {
- this.router.navigate(['/login'])
- console.log('this.userEmail - logout', this.userEmail)
- this.notificationService.handleSuccess(`User ${this.userEmail} successfully logout!`)
- }
- })
- }
-
- me() {
- return this.http.get<CommonResponseType<MeResponse>>(`${environment.baseUrl}/auth/me`).pipe(
- catchError(err => this.errorHandler(err)),
- tap(res => {
- if (res.resultCode == ResultCode.success) {
- this.userEmail = res.data.email || ''
- this.isAuth = true
- }
- })
- )
- }
-
- private errorHandler = (err: HttpErrorResponse) => {
- this.notificationService.handleError(err.message)
- return EMPTY //завершить поток данных без передачи значений дальше.
- }
- }*/
