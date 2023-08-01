@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
-import { Observable, Subject, takeUntil } from 'rxjs'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { Observable } from 'rxjs'
 
 import { NotificationService } from '../../services/notification.service'
 import { Notify } from '../../interfaces/notify.interfaces'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-notify',
@@ -10,20 +11,16 @@ import { Notify } from '../../interfaces/notify.interfaces'
   styleUrls: ['./notify.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotifyComponent implements OnInit, OnDestroy {
+export class NotifyComponent {
+  notify: Notify | null = null
   notify$!: Observable<Notify | null>
-  private unsubscribe$ = new Subject<void>()
 
-  constructor(private notificationService: NotificationService) {}
-
-  ngOnInit() {
-    console.log('NotifyComponent created')
-    this.notify$ = this.notificationService.notify$.pipe(takeUntil(this.unsubscribe$))
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next()
-    this.unsubscribe$.complete()
+  constructor(private notificationService: NotificationService) {
+    this.notify$ = this.notificationService.notify$.pipe(takeUntilDestroyed())
+    this.notify$.subscribe({
+      next: value => (this.notify = value),
+      error: error => this.notificationService.handleError(error),
+    })
   }
 
   closeNotification = () => {
